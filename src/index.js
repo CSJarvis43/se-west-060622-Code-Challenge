@@ -15,6 +15,7 @@ const newComment = document.querySelector('#comment-form')
 const commentsList = document.querySelector('#comments-list')
 const likeBtn = document.querySelector('#like-button')
 const likes = document.getElementById('like-count')
+const comments = document.querySelector('#comments-list')
 
 
 function init(){
@@ -32,9 +33,20 @@ function renderImages(imageData){
     
     const image = document.getElementById('card-image')
     image.src = imageData.image
+    image.addEventListener('click', randDogImg)
     
     const likes = document.getElementById('like-count')
     likes.textContent = `${imageData.likes}`
+}
+
+function randDogImg(){
+    const image = document.getElementById('card-image')
+    // console.log(image.src)
+    fetch('https://dog.ceo/api/breeds/image/random')
+    .then(res => res.json())
+    .then(newImg => {
+        image.src = newImg.message
+    })
 }
 
 function renderComments(imageData){
@@ -54,7 +66,7 @@ newComment.addEventListener('submit', e => {
     // console.log(e.target['comment'].value)
     let newLi = document.createElement('li')
     newLi.textContent = e.target['comment'].value
-    console.log(newLi)
+    // console.log(newLi)
     commentsList.append(newLi)
 })
 
@@ -64,8 +76,9 @@ function handleLikes(e){
     let likenum = document.getElementById('like-count').innerText
     likenum++
     likes.innerText = likenum
-    console.log(likes)
 }
+
+
 
 
 init()
