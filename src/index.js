@@ -16,6 +16,7 @@ const commentsList = document.querySelector('#comments-list')
 const likeBtn = document.querySelector('#like-button')
 const likes = document.getElementById('like-count')
 const comments = document.querySelector('#comments-list')
+let newDog
 
 
 function init(){
@@ -46,8 +47,12 @@ function randDogImg(){
     .then(res => res.json())
     .then(newImg => {
         image.src = newImg.message
+        newDog = {newImg}
     })
 }
+
+console.log(newDog)
+
 
 function renderComments(imageData){
     const li1 = document.getElementById('li1')
